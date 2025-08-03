@@ -2,7 +2,7 @@
 <!DOCTYPE resources PUBLIC "-//Payara.fish//DTD Payara Server 4 Resource Definitions//EN" "https://raw.githubusercontent.com/payara/Payara-Enterprise-Documentation/master/docs/modules/ROOT/pages/schemas/payara-resources_1_6.dtd">
 <resources>
 	<jdbc-connection-pool
-		datasource-classname="com.mysql.cj.jdbc.MysqlConnectionPoolDataSource"
+		datasource-classname="com.mysql.cj.jdbc.MysqlDataSource"
 		name="acmemedicalDB" res-type="javax.sql.DataSource">
 		<property name="databaseName" value="acmemedical"></property>
 		<property name="serverName" value="localhost"></property>
