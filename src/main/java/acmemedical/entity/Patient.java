@@ -17,6 +17,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @SuppressWarnings("unused")
 
 /**
@@ -24,7 +26,11 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "patient")
+@NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")
+@NamedQuery(name = "Patient.findById", query = "SELECT p FROM Patient p WHERE p.id = :param1")
 public class Patient extends PojoBase implements Serializable {
+	public static final String ALL_PATIENTS_QUERY_NAME = "Patient.findAll";
+	public static final String SPECIFIC_PATIENT_QUERY_NAME = "Patient.findById";
 	private static final long serialVersionUID = 1L;
 	
 	@Basic(optional = false)
@@ -56,6 +62,7 @@ public class Patient extends PojoBase implements Serializable {
 	private byte smoker;
 
 	@OneToMany(mappedBy = "patient", cascade = jakarta.persistence.CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<Prescription> prescriptions = new HashSet<>();
 
 	public Patient() {

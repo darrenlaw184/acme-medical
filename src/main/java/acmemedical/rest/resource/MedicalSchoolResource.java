@@ -49,6 +49,8 @@ public class MedicalSchoolResource {
     protected SecurityContext sc;
     
     @GET
+    // Any user can retrieve the list of MedicalSchool
+    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
     public Response getMedicalSchools() {
         LOG.debug("Retrieving all medical schools...");
         List<MedicalSchool> medicalSchools = service.getAllMedicalSchools();
@@ -106,7 +108,7 @@ public class MedicalSchoolResource {
         return Response.ok(sc).build();
     }
 
-    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
+    @RolesAllowed({ADMIN_ROLE})
     @PUT
     @Path("/{medicalSchoolId}")
     public Response updateMedicalSchool(@PathParam("medicalSchoolId") int msId, MedicalSchool updatingMedicalSchool) {

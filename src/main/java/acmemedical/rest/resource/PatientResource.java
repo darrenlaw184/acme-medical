@@ -70,7 +70,7 @@ public class PatientResource {
     }
 
     @POST
-    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
+    @RolesAllowed({ADMIN_ROLE})
     public Response addPatient(Patient newPatient) {
         LOG.debug("adding new patient = {}", newPatient);
         Patient newPatientWithIdTimestamps = service.persistPatient(newPatient);
