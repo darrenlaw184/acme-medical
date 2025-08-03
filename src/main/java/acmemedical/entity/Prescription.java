@@ -23,6 +23,8 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @SuppressWarnings("unused")
 /**
  * The persistent class for the prescription database table.
@@ -31,7 +33,10 @@ import jakarta.persistence.Table;
 @Table(name = "prescription")
 @Access(AccessType.FIELD)
 @NamedQuery(name = "Prescription.findAll", query = "SELECT p FROM Prescription p")
+@NamedQuery(name = "Prescription.findByPhysicianAndPatient", query = "SELECT p FROM Prescription p WHERE p.physician.id = :param1 AND p.patient.id = :param2")
 public class Prescription extends PojoBaseCompositeKey<PrescriptionPK> implements Serializable {
+	public static final String ALL_PRESCRIPTIONS_QUERY_NAME = "Prescription.findAll";
+	public static final String FIND_BY_PHYSICIAN_PATIENT_QUERY_NAME = "Prescription.findByPhysicianAndPatient";
 	private static final long serialVersionUID = 1L;
 
 	// Hint - What annotation is used for a composite primary key type?
@@ -42,15 +47,18 @@ public class Prescription extends PojoBaseCompositeKey<PrescriptionPK> implement
 	@MapsId("physicianId")
     @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "physician_id", referencedColumnName = "id", nullable = false)
+	@JsonIgnore
 	private Physician physician;
 
 	@MapsId("patientId")
 	@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
+	@JsonIgnore
 	private Patient patient;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
+	@JsonIgnore
 	private Medicine medicine;
 
 	@Column(name = "number_of_refills")

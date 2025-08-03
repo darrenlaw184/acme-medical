@@ -38,11 +38,14 @@ import jakarta.persistence.Transient;
 //Hint - @NamedQuery uses the name which is defined in @Entity for JPQL, if no name is defined use class name.
 //Hint - @NamedNativeQuery can optionally be used if there is a need for SQL query.
 @NamedQuery(name = "Medicine.findAll", query = "SELECT m FROM Medicine m")
+@NamedQuery(name = "Medicine.findById", query = "SELECT m FROM Medicine m WHERE m.id = :param1")
 //Hint - @AttributeOverride can override column details.  This entity uses medicine_id as its primary key name, it needs to override the name in the mapped super class.
 @AttributeOverride(name = "id", column = @Column(name = "medicine_id"))
 //Hint - PojoBase is inherited by any entity with integer as their primary key.
 //Hint - PojoBaseCompositeKey is inherited by any entity with a composite key as their primary key.
 public class Medicine extends PojoBase implements Serializable {
+	public static final String ALL_MEDICINES_QUERY_NAME = "Medicine.findAll";
+	public static final String SPECIFIC_MEDICINE_QUERY_NAME = "Medicine.findById";
 	private static final long serialVersionUID = 1L;
 
 	// Hint - @Basic(optional = false) is used when the object cannot be null.

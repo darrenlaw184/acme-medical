@@ -19,6 +19,8 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @SuppressWarnings("unused")
 
 /**
@@ -27,13 +29,16 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "medical_certificate")
 @AttributeOverride(name = "id", column = @Column(name = "certificate_id"))
+@NamedQuery(name = "MedicalCertificate.findAll", query = "SELECT mc FROM MedicalCertificate mc")
 @NamedQuery(name = "MedicalCertificate.findById", query = "SELECT mc FROM MedicalCertificate mc WHERE mc.id = :param1")
 public class MedicalCertificate extends PojoBase implements Serializable {
+	public static final String ALL_MEDICAL_CERTIFICATES_QUERY_NAME = "MedicalCertificate.findAll";
 	public static final String ID_CARD_QUERY_NAME = "MedicalCertificate.findById";
 	private static final long serialVersionUID = 1L;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "medical_training_id", referencedColumnName = "training_id")
+	@JsonIgnore
 	private MedicalTraining medicalTraining;
 
 	@ManyToOne(fetch = FetchType.LAZY)

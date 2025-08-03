@@ -18,6 +18,8 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the physician database table.
  */
@@ -43,9 +45,11 @@ public class Physician extends PojoBase implements Serializable {
 	private String lastName;
 
 	@OneToMany(mappedBy = "owner", cascade = jakarta.persistence.CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<MedicalCertificate> medicalCertificates = new HashSet<>();
 
 	@OneToMany(mappedBy = "physician", cascade = jakarta.persistence.CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<Prescription> prescriptions = new HashSet<>();
 
 	public String getFirstName() {

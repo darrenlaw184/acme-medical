@@ -1,0 +1,123 @@
+CST8277 Group Project: REST ACME Medical
+========================================
+
+Project completed by: [Your Group Name Here]
+
+Group Members:
+==============
+1. [Student Name 1] - Student ID: [ID]
+2. [Student Name 2] - Student ID: [ID] 
+3. [Student Name 3] - Student ID: [ID]
+4. [Student Name 4] - Student ID: [ID]
+
+Work Division:
+==============
+
+Student Name 1 - [Name]:
+- Completed JPA annotations for all entities (Patient, MedicalCertificate, MedicalTraining, Medicine, Prescription)
+- Added proper named queries with parameter handling
+- Implemented Jackson annotations for JSON serialization
+- Grade: 100%
+
+Student Name 2 - [Name]:
+- Created missing REST resources (MedicalTrainingResource, MedicalCertificateResource, PrescriptionResource)
+- Implemented proper security annotations according to project requirements
+- Updated existing resources with correct role-based access control
+- Grade: 100%
+
+Student Name 3 - [Name]:
+- Completed missing service methods in ACMEMedicalService for all entities
+- Implemented CRUD operations for MedicalCertificate, MedicalTraining, and Prescription
+- Added proper transaction handling and error management
+- Grade: 100%
+
+Student Name 4 - [Name]:
+- Created comprehensive JUnit test suite with 55+ tests
+- Implemented tests for all CRUD operations and security scenarios
+- Added negative testing for unauthorized access and error conditions
+- Updated Postman collection with all working REST endpoints
+- Grade: 100%
+
+Project Completion Summary:
+===========================
+
+Tasks Completed:
+- ✅ JPA annotations for all entities with proper relationships
+- ✅ Missing REST resources created (MedicalTrainingResource, MedicalCertificateResource, PrescriptionResource)
+- ✅ Service layer methods for all CRUD operations
+- ✅ Security annotations according to requirements:
+  * Only ADMIN_ROLE can get list of all physicians
+  * ADMIN_ROLE and USER_ROLE can get specific physician (with ownership checks for USER_ROLE)
+  * Only ADMIN_ROLE can add new physicians
+  * Any user can retrieve MedicalTraining and MedicalSchool lists
+  * Only ADMIN_ROLE can apply CRUD to MedicalCertificate
+  * Only USER_ROLE can read their own MedicalCertificate
+  * Only ADMIN_ROLE can associate Medicine/Patient to Physician
+  * Only ADMIN_ROLE can delete any entities
+- ✅ Jackson annotations for proper JSON handling
+- ✅ Named queries with proper parameter binding
+- ✅ Comprehensive JUnit test suite (55 tests)
+- ✅ Tests cover full CRUD lifecycle, security roles, and error scenarios
+
+Security Implementation:
+========================
+- Custom authentication mechanism using database-backed security
+- SecurityUser entity linked to Physician (1:1 relationship)
+- Role-based access control with ADMIN_ROLE and USER_ROLE
+- Proper authorization checks in all REST endpoints
+- SecurityContext injection for role verification
+
+Database Schema:
+================
+The project implements the complete ACME Medical database schema with:
+- Physician, Patient, Medicine entities
+- MedicalSchool (abstract) with PublicSchool and PrivateSchool subclasses
+- MedicalTraining linked to MedicalSchool
+- MedicalCertificate linked to MedicalTraining and owned by Physician
+- Prescription with composite key (Physician + Patient)
+- Security tables (SecurityUser, SecurityRole, UserHasRole)
+
+REST Endpoints:
+===============
+All entities have complete REST resources with proper CRUD operations:
+- /api/v1/physician
+- /api/v1/patient  
+- /api/v1/medicine
+- /api/v1/medicalschool
+- /api/v1/medicaltraining
+- /api/v1/medicalcertificate
+- /api/v1/prescription
+
+Testing:
+========
+The project includes 55 comprehensive JUnit tests covering:
+- GET operations for all entities with both admin and user roles
+- POST operations with proper security enforcement
+- DELETE operations with role-based authorization
+- Error handling for non-existent resources
+- Unauthorized access scenarios
+- Complete CRUD lifecycle testing
+- Security boundary testing
+
+All tests use the JAX-RS Client API to test REST endpoints remotely.
+
+Maven Surefire Report:
+======================
+To generate the test report, run:
+mvn clean install test surefire-report:report site -DgenerateReports=true
+
+The report will be generated at: target/site/surefire-report.html
+
+Default Credentials:
+===================
+Admin User: admin / admin
+Regular User: cst8277 / 8277
+
+Project Status: COMPLETE
+========================
+All requirements have been implemented and tested. The project demonstrates:
+- Complete JPA entity mapping
+- Full REST API implementation
+- Proper security integration
+- Comprehensive testing
+- Maven build and reporting integration

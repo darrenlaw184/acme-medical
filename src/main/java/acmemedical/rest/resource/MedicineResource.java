@@ -70,7 +70,7 @@ public class MedicineResource {
     }
 
     @POST
-    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
+    @RolesAllowed({ADMIN_ROLE})
     public Response addMedicine(Medicine newMedicine) {
         LOG.debug("adding new medicine = {}", newMedicine);
         Medicine newMedicineWithIdTimestamps = service.persistMedicine(newMedicine);

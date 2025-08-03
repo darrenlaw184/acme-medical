@@ -328,4 +328,119 @@ public class ACMEMedicalService implements Serializable {
         return null;
     }
     
+    // MedicalCertificate methods
+    public List<MedicalCertificate> getAllMedicalCertificates() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<MedicalCertificate> cq = cb.createQuery(MedicalCertificate.class);
+        cq.select(cq.from(MedicalCertificate.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public MedicalCertificate getMedicalCertificateById(int id) {
+        return em.find(MedicalCertificate.class, id);
+    }
+
+    @Transactional
+    public MedicalCertificate persistMedicalCertificate(MedicalCertificate newMedicalCertificate) {
+        em.persist(newMedicalCertificate);
+        return newMedicalCertificate;
+    }
+
+    @Transactional
+    public MedicalCertificate updateMedicalCertificate(int id, MedicalCertificate medicalCertificateWithUpdates) {
+        MedicalCertificate medicalCertificateToBeUpdated = getMedicalCertificateById(id);
+        if (medicalCertificateToBeUpdated != null) {
+            em.refresh(medicalCertificateToBeUpdated);
+            medicalCertificateToBeUpdated.setSigned(medicalCertificateWithUpdates.getSigned());
+            if (medicalCertificateWithUpdates.getOwner() != null) {
+                medicalCertificateToBeUpdated.setOwner(medicalCertificateWithUpdates.getOwner());
+            }
+            if (medicalCertificateWithUpdates.getMedicalTraining() != null) {
+                medicalCertificateToBeUpdated.setMedicalTraining(medicalCertificateWithUpdates.getMedicalTraining());
+            }
+            em.merge(medicalCertificateToBeUpdated);
+            em.flush();
+        }
+        return medicalCertificateToBeUpdated;
+    }
+
+    @Transactional
+    public MedicalCertificate deleteMedicalCertificate(int id) {
+        MedicalCertificate medicalCertificate = getMedicalCertificateById(id);
+        if (medicalCertificate != null) {
+            em.remove(medicalCertificate);
+            return medicalCertificate;
+        }
+        return null;
+    }
+    
+    // MedicalTraining methods
+    public List<MedicalTraining> getAllMedicalTrainings() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<MedicalTraining> cq = cb.createQuery(MedicalTraining.class);
+        cq.select(cq.from(MedicalTraining.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    @Transactional
+    public MedicalTraining deleteMedicalTraining(int id) {
+        MedicalTraining medicalTraining = getMedicalTrainingById(id);
+        if (medicalTraining != null) {
+            em.remove(medicalTraining);
+            return medicalTraining;
+        }
+        return null;
+    }
+    
+    // Prescription methods
+    public List<Prescription> getAllPrescriptions() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Prescription> cq = cb.createQuery(Prescription.class);
+        cq.select(cq.from(Prescription.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public Prescription getPrescriptionByPhysicianAndPatient(int physicianId, int patientId) {
+        TypedQuery<Prescription> query = em.createNamedQuery(Prescription.FIND_BY_PHYSICIAN_PATIENT_QUERY_NAME, Prescription.class);
+        query.setParameter("param1", physicianId);
+        query.setParameter("param2", patientId);
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Transactional
+    public Prescription persistPrescription(Prescription newPrescription) {
+        em.persist(newPrescription);
+        return newPrescription;
+    }
+
+    @Transactional
+    public Prescription updatePrescription(int physicianId, int patientId, Prescription prescriptionWithUpdates) {
+        Prescription prescriptionToBeUpdated = getPrescriptionByPhysicianAndPatient(physicianId, patientId);
+        if (prescriptionToBeUpdated != null) {
+            em.refresh(prescriptionToBeUpdated);
+            prescriptionToBeUpdated.setNumberOfRefills(prescriptionWithUpdates.getNumberOfRefills());
+            prescriptionToBeUpdated.setPrescriptionInformation(prescriptionWithUpdates.getPrescriptionInformation());
+            if (prescriptionWithUpdates.getMedicine() != null) {
+                prescriptionToBeUpdated.setMedicine(prescriptionWithUpdates.getMedicine());
+            }
+            em.merge(prescriptionToBeUpdated);
+            em.flush();
+        }
+        return prescriptionToBeUpdated;
+    }
+
+    @Transactional
+    public Prescription deletePrescription(int physicianId, int patientId) {
+        Prescription prescription = getPrescriptionByPhysicianAndPatient(physicianId, patientId);
+        if (prescription != null) {
+            em.remove(prescription);
+            return prescription;
+        }
+        return null;
+    }
+    
 }
