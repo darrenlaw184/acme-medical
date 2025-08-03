@@ -63,7 +63,7 @@ public class ACMEMedicalCRUDTestSuite {
         adminAuth = HttpAuthenticationFeature.basic(ADMIN_USER, ADMIN_PASS);
         userAuth = HttpAuthenticationFeature.basic(USER_NAME, USER_PASS);
         
-        System.out.println("🧪 Test Suite initialized for: " + BASE_URL);
+        System.out.println("Test Suite initialized for: " + BASE_URL);
     }
 
     // =================================
@@ -72,7 +72,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(1)
-    @DisplayName("🔌 Test API Connectivity")
+    @DisplayName("Test API Connectivity")
     void testConnectivity() {
         Response response = webTarget.path("test").request().get();
         assertEquals(200, response.getStatus(), "API should be accessible");
@@ -81,12 +81,12 @@ public class ACMEMedicalCRUDTestSuite {
         assertTrue(body.contains("ACME Medical REST API is working!"), 
                   "Health check should return success message");
         
-        System.out.println("✅ API Connectivity: PASSED");
+        System.out.println("API Connectivity: PASSED");
     }
 
     @Test
     @Order(2)
-    @DisplayName("🏥 Test Health Status")
+    @DisplayName("Test Health Status")
     void testHealthStatus() {
         Response response = webTarget.path("test/health").request().get();
         assertEquals(200, response.getStatus(), "Health endpoint should return 200");
@@ -94,7 +94,7 @@ public class ACMEMedicalCRUDTestSuite {
         String body = response.readEntity(String.class);
         assertTrue(body.contains("healthy"), "Health status should be healthy");
         
-        System.out.println("✅ Health Status: PASSED");
+        System.out.println("Health Status: PASSED");
     }
 
     // =================================
@@ -103,7 +103,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(10)
-    @DisplayName("🔐 Test Admin Authentication")
+    @DisplayName("Test Admin Authentication")
     void testAdminAuthentication() {
         Response response = webTarget
             .register(adminAuth)
@@ -112,12 +112,12 @@ public class ACMEMedicalCRUDTestSuite {
             .get();
         
         assertEquals(200, response.getStatus(), "Admin should authenticate successfully");
-        System.out.println("✅ Admin Authentication: PASSED");
+        System.out.println("Admin Authentication: PASSED");
     }
 
     @Test
     @Order(11)
-    @DisplayName("👤 Test User Authentication")
+    @DisplayName("Test User Authentication")
     void testUserAuthentication() {
         Response response = webTarget
             .register(userAuth)
@@ -126,12 +126,12 @@ public class ACMEMedicalCRUDTestSuite {
             .get();
         
         assertEquals(200, response.getStatus(), "User should authenticate successfully");
-        System.out.println("✅ User Authentication: PASSED");
+        System.out.println("User Authentication: PASSED");
     }
 
     @Test
     @Order(12)
-    @DisplayName("🚫 Test No Authentication")
+    @DisplayName("Test No Authentication")
     void testNoAuthentication() {
         Response response = webTarget
             .path("physician")
@@ -139,7 +139,7 @@ public class ACMEMedicalCRUDTestSuite {
             .get();
         
         assertEquals(401, response.getStatus(), "Unauthenticated access should return 401");
-        System.out.println("✅ No Authentication: PASSED");
+        System.out.println("No Authentication: PASSED");
     }
 
     // =================================
@@ -148,7 +148,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(20)
-    @DisplayName("👨‍⚕️ GET All Physicians (Admin)")
+    @DisplayName("GET All Physicians (Admin)")
     void testGetAllPhysicians() {
         Response response = webTarget
             .register(adminAuth)
@@ -161,12 +161,12 @@ public class ACMEMedicalCRUDTestSuite {
         List<Physician> physicians = response.readEntity(new GenericType<List<Physician>>(){});
         assertFalse(physicians.isEmpty(), "Should have at least one physician");
         
-        System.out.println("✅ GET All Physicians: " + physicians.size() + " found");
+        System.out.println("GET All Physicians: " + physicians.size() + " found");
     }
 
     @Test
     @Order(21)
-    @DisplayName("👨‍⚕️ GET Physician by ID")
+    @DisplayName("GET Physician by ID")
     void testGetPhysicianById() {
         Response response = webTarget
             .register(adminAuth)
@@ -180,12 +180,12 @@ public class ACMEMedicalCRUDTestSuite {
         assertNotNull(physician, "Physician should not be null");
         assertEquals(1, physician.getId(), "Physician ID should match");
         
-        System.out.println("✅ GET Physician by ID: " + physician.getFirstName() + " " + physician.getLastName());
+        System.out.println("GET Physician by ID: " + physician.getFirstName() + " " + physician.getLastName());
     }
 
     @Test
     @Order(22)
-    @DisplayName("👨‍⚕️ CREATE New Physician")
+    @DisplayName("CREATE New Physician")
     void testCreatePhysician() {
         Physician newPhysician = new Physician();
         newPhysician.setFirstName("Test");
@@ -204,12 +204,12 @@ public class ACMEMedicalCRUDTestSuite {
         assertEquals("Test", created.getFirstName(), "First name should match");
         assertEquals("Doctor", created.getLastName(), "Last name should match");
         
-        System.out.println("✅ CREATE Physician: ID " + created.getId() + " created");
+        System.out.println("CREATE Physician: ID " + created.getId() + " created");
     }
 
     @Test
     @Order(23)
-    @DisplayName("🚫 User Cannot Create Physician")
+    @DisplayName("User Cannot Create Physician")
     void testUserCannotCreatePhysician() {
         Physician newPhysician = new Physician();
         newPhysician.setFirstName("Unauthorized");
@@ -222,7 +222,7 @@ public class ACMEMedicalCRUDTestSuite {
             .post(Entity.entity(newPhysician, MediaType.APPLICATION_JSON));
         
         assertEquals(403, response.getStatus(), "User should not be able to create physician");
-        System.out.println("✅ User Authorization Block: PASSED");
+        System.out.println("User Authorization Block: PASSED");
     }
 
     // =================================
@@ -231,7 +231,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(30)
-    @DisplayName("🏥 GET All Patients")
+    @DisplayName("GET All Patients")
     void testGetAllPatients() {
         Response response = webTarget
             .register(adminAuth)
@@ -244,12 +244,12 @@ public class ACMEMedicalCRUDTestSuite {
         List<Patient> patients = response.readEntity(new GenericType<List<Patient>>(){});
         assertFalse(patients.isEmpty(), "Should have at least one patient");
         
-        System.out.println("✅ GET All Patients: " + patients.size() + " found");
+        System.out.println("GET All Patients: " + patients.size() + " found");
     }
 
     @Test
     @Order(31)
-    @DisplayName("🏥 GET Patient by ID")
+    @DisplayName("GET Patient by ID")
     void testGetPatientById() {
         Response response = webTarget
             .register(adminAuth)
@@ -262,12 +262,12 @@ public class ACMEMedicalCRUDTestSuite {
         Patient patient = response.readEntity(Patient.class);
         assertNotNull(patient, "Patient should not be null");
         
-        System.out.println("✅ GET Patient by ID: " + patient.getFirstName() + " " + patient.getLastName());
+        System.out.println("GET Patient by ID: " + patient.getFirstName() + " " + patient.getLastName());
     }
 
     @Test
     @Order(32)
-    @DisplayName("🏥 CREATE New Patient")
+    @DisplayName("CREATE New Patient")
     void testCreatePatient() {
         Patient newPatient = new Patient();
         newPatient.setFirstName("Jane");
@@ -290,7 +290,7 @@ public class ACMEMedicalCRUDTestSuite {
         assertNotNull(created.getId(), "Created patient should have ID");
         assertEquals("Jane", created.getFirstName(), "First name should match");
         
-        System.out.println("✅ CREATE Patient: ID " + created.getId() + " created");
+        System.out.println("CREATE Patient: ID " + created.getId() + " created");
     }
 
     // =================================
@@ -299,7 +299,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(40)
-    @DisplayName("💊 GET All Medicines")
+    @DisplayName("GET All Medicines")
     void testGetAllMedicines() {
         Response response = webTarget
             .register(adminAuth)
@@ -312,12 +312,12 @@ public class ACMEMedicalCRUDTestSuite {
         List<Medicine> medicines = response.readEntity(new GenericType<List<Medicine>>(){});
         assertFalse(medicines.isEmpty(), "Should have at least one medicine");
         
-        System.out.println("✅ GET All Medicines: " + medicines.size() + " found");
+        System.out.println("GET All Medicines: " + medicines.size() + " found");
     }
 
     @Test
     @Order(41)
-    @DisplayName("💊 GET Medicine by ID")
+    @DisplayName("GET Medicine by ID")
     void testGetMedicineById() {
         Response response = webTarget
             .register(adminAuth)
@@ -330,12 +330,12 @@ public class ACMEMedicalCRUDTestSuite {
         Medicine medicine = response.readEntity(Medicine.class);
         assertNotNull(medicine, "Medicine should not be null");
         
-        System.out.println("✅ GET Medicine by ID: " + medicine.getDrugName());
+        System.out.println("GET Medicine by ID: " + medicine.getDrugName());
     }
 
     @Test
     @Order(42)
-    @DisplayName("💊 CREATE New Medicine")
+    @DisplayName("CREATE New Medicine")
     void testCreateMedicine() {
         Medicine newMedicine = new Medicine();
         newMedicine.setDrugName("Test Medication");
@@ -355,7 +355,7 @@ public class ACMEMedicalCRUDTestSuite {
         assertNotNull(created.getId(), "Created medicine should have ID");
         assertEquals("Test Medication", created.getDrugName(), "Drug name should match");
         
-        System.out.println("✅ CREATE Medicine: ID " + created.getId() + " created");
+        System.out.println("CREATE Medicine: ID " + created.getId() + " created");
     }
 
     // =================================
@@ -364,7 +364,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(50)
-    @DisplayName("🏫 GET All Medical Schools")
+    @DisplayName("GET All Medical Schools")
     void testGetAllMedicalSchools() {
         Response response = webTarget
             .register(adminAuth)
@@ -377,12 +377,12 @@ public class ACMEMedicalCRUDTestSuite {
         List<MedicalSchool> schools = response.readEntity(new GenericType<List<MedicalSchool>>(){});
         assertFalse(schools.isEmpty(), "Should have at least one medical school");
         
-        System.out.println("✅ GET All Medical Schools: " + schools.size() + " found");
+        System.out.println("GET All Medical Schools: " + schools.size() + " found");
     }
 
     @Test
     @Order(51)
-    @DisplayName("🏫 GET Medical School by ID")
+    @DisplayName("GET Medical School by ID")
     void testGetMedicalSchoolById() {
         Response response = webTarget
             .register(adminAuth)
@@ -395,7 +395,7 @@ public class ACMEMedicalCRUDTestSuite {
         MedicalSchool school = response.readEntity(MedicalSchool.class);
         assertNotNull(school, "Medical school should not be null");
         
-        System.out.println("✅ GET Medical School by ID: " + school.getName());
+        System.out.println("GET Medical School by ID: " + school.getName());
     }
 
     // =================================
@@ -404,7 +404,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(90)
-    @DisplayName("🚫 Test 404 - Non-existent Resource")
+    @DisplayName("Test 404 - Non-existent Resource")
     void testNotFound() {
         Response response = webTarget
             .register(adminAuth)
@@ -413,12 +413,12 @@ public class ACMEMedicalCRUDTestSuite {
             .get();
         
         assertEquals(404, response.getStatus(), "Should return 404 for non-existent resource");
-        System.out.println("✅ 404 Error Handling: PASSED");
+        System.out.println("404 Error Handling: PASSED");
     }
 
     @Test
     @Order(91)
-    @DisplayName("🚫 Test Invalid Authentication")
+    @DisplayName("Test Invalid Authentication")
     void testInvalidAuth() {
         HttpAuthenticationFeature invalidAuth = HttpAuthenticationFeature.basic("invalid", "invalid");
         
@@ -429,7 +429,7 @@ public class ACMEMedicalCRUDTestSuite {
             .get();
         
         assertEquals(401, response.getStatus(), "Should return 401 for invalid credentials");
-        System.out.println("✅ Invalid Auth Handling: PASSED");
+        System.out.println("Invalid Auth Handling: PASSED");
     }
 
     // =================================
@@ -438,7 +438,7 @@ public class ACMEMedicalCRUDTestSuite {
 
     @Test
     @Order(95)
-    @DisplayName("📊 Test All GET Endpoints")
+    @DisplayName("Test All GET Endpoints")
     void testAllGetEndpoints() {
         String[] endpoints = {
             "physician", "patient", "medicine", "medicalschool", 
@@ -456,30 +456,30 @@ public class ACMEMedicalCRUDTestSuite {
                 
                 if (response.getStatus() == 200) {
                     successCount++;
-                    System.out.println("✅ " + endpoint + ": SUCCESS");
+                    System.out.println(endpoint + ": SUCCESS");
                 } else {
-                    System.out.println("❌ " + endpoint + ": " + response.getStatus());
+                    System.out.println(endpoint + ": " + response.getStatus());
                 }
             } catch (Exception e) {
-                System.out.println("❌ " + endpoint + ": " + e.getMessage());
+                System.out.println(endpoint + ": " + e.getMessage());
             }
         }
         
         assertTrue(successCount >= 4, "At least 4 endpoints should be working");
-        System.out.println("✅ Endpoint Coverage: " + successCount + "/" + endpoints.length);
+        System.out.println("Endpoint Coverage: " + successCount + "/" + endpoints.length);
     }
 
     @Test
     @Order(99)
-    @DisplayName("📈 Test Suite Summary")
+    @DisplayName("Test Suite Summary")
     void testSuiteSummary() {
-        System.out.println("\n🎯 ===== ACME MEDICAL REST API TEST SUMMARY =====");
-        System.out.println("✅ Base URL: " + BASE_URL);
-        System.out.println("✅ Authentication: WORKING");
-        System.out.println("✅ Authorization: WORKING");
-        System.out.println("✅ CRUD Operations: WORKING");
-        System.out.println("✅ Error Handling: WORKING");
-        System.out.println("🎉 ALL TESTS COMPLETED SUCCESSFULLY!");
+        System.out.println("\n===== ACME MEDICAL REST API TEST SUMMARY =====");
+        System.out.println("Base URL: " + BASE_URL);
+        System.out.println("Authentication: WORKING");
+        System.out.println("Authorization: WORKING");
+        System.out.println("CRUD Operations: WORKING");
+        System.out.println("Error Handling: WORKING");
+        System.out.println("ALL TESTS COMPLETED SUCCESSFULLY!");
         
         assertTrue(true, "Test suite completed successfully");
     }
