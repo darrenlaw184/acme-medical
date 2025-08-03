@@ -1,0 +1,809 @@
+{
+	"info": {
+		"_postman_id": "complete-crud-acme-medical",
+		"name": "REST ACMEMedical - Complete CRUD Test Suite",
+		"description": "Complete CRUD testing for all ACME Medical REST endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://dlaw:8080/REST-ACMEMedical-Skeleton/api/v1",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "🧪 Test Endpoints (No Auth)",
+			"item": [
+				{
+					"name": "GET Test - Basic Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/test",
+							"host": ["{{baseUrl}}"],
+							"path": ["test"]
+						}
+					}
+				},
+				{
+					"name": "GET Test - Health Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/test/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["test", "health"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "👨‍⚕️ Physician CRUD Operations",
+			"item": [
+				{
+					"name": "GET All Physicians (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/physician",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician"]
+						}
+					}
+				},
+				{
+					"name": "GET Physician by ID (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/physician/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician", "1"]
+						}
+					}
+				},
+				{
+					"name": "GET Physician by ID (User)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "cst8277", "type": "string"},
+								{"key": "password", "value": "8277", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/physician/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician", "1"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Physician (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Michael\",\n    \"lastName\": \"Smith\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/physician",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician"]
+						}
+					}
+				},
+				{
+					"name": "PUT Update Medicine for Physician-Patient",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"drugName\": \"Advil\",\n    \"manufacturerName\": \"Pfizer\",\n    \"dosageInformation\": \"Take 2 tablets every 6 hours\",\n    \"genericName\": \"Ibuprofen\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/physician/1/patient/1/medicine",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician", "1", "patient", "1", "medicine"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🏥 Patient CRUD Operations",
+			"item": [
+				{
+					"name": "GET All Patients (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/patient",
+							"host": ["{{baseUrl}}"],
+							"path": ["patient"]
+						}
+					}
+				},
+				{
+					"name": "GET Patient by ID (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/patient/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["patient", "1"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Patient (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Charles\",\n    \"lastName\": \"Xavier\",\n    \"year\": 1978,\n    \"address\": \"456 Main St. Toronto\",\n    \"height\": 170,\n    \"weight\": 90,\n    \"smoker\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patient",
+							"host": ["{{baseUrl}}"],
+							"path": ["patient"]
+						}
+					}
+				},
+				{
+					"name": "PUT Update Medicine for Patient",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"drugName\": \"Tylenol\",\n    \"manufacturerName\": \"Johnson & Johnson\",\n    \"dosageInformation\": \"Take 1 tablet every 4 hours\",\n    \"genericName\": \"Acetaminophen\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patient/1/medicine",
+							"host": ["{{baseUrl}}"],
+							"path": ["patient", "1", "medicine"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "💊 Medicine CRUD Operations",
+			"item": [
+				{
+					"name": "GET All Medicines (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicine",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicine"]
+						}
+					}
+				},
+				{
+					"name": "GET Medicine by ID (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicine/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicine", "1"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Medicine (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"drugName\": \"Biogesic\",\n    \"manufacturerName\": \"Unilab\",\n    \"dosageInformation\": \"Take 4 tablets per day with 6 hours interval\",\n    \"chemicalName\": null,\n    \"genericName\": \"Paracetamol\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/medicine",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicine"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🏫 Medical School CRUD Operations",
+			"item": [
+				{
+					"name": "GET All Medical Schools (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicalschool",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalschool"]
+						}
+					}
+				},
+				{
+					"name": "GET Medical School by ID (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicalschool/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalschool", "1"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Private Medical School (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entity-type\": \"private_school\",\n    \"name\": \"Harvard Medical School\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/medicalschool",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalschool"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Public Medical School (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entity-type\": \"public_school\",\n    \"name\": \"University of Toronto Medical School\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/medicalschool",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalschool"]
+						}
+					}
+				},
+				{
+					"name": "DELETE Medical School (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicalschool/2",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalschool", "2"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📚 Medical Training CRUD Operations",
+			"item": [
+				{
+					"name": "GET All Medical Training Records (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicaltraining",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicaltraining"]
+						}
+					}
+				},
+				{
+					"name": "GET Medical Training by ID (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicaltraining/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicaltraining", "1"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Medical Training (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"certificate\": {\n        \"signed\": 1,\n        \"start\": \"2020-01-01\",\n        \"end\": \"2024-01-01\"\n    },\n    \"physician\": {\n        \"id\": 1\n    },\n    \"school\": {\n        \"id\": 1\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/medicaltraining",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicaltraining"]
+						}
+					}
+				},
+				{
+					"name": "PUT Update Medical Training (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"certificate\": {\n        \"signed\": 1,\n        \"start\": \"2020-01-01\",\n        \"end\": \"2025-01-01\"\n    },\n    \"physician\": {\n        \"id\": 1\n    },\n    \"school\": {\n        \"id\": 1\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/medicaltraining/physician/1/school/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicaltraining", "physician", "1", "school", "1"]
+						}
+					}
+				},
+				{
+					"name": "DELETE Medical Training (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicaltraining/physician/1/school/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicaltraining", "physician", "1", "school", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "💉 Prescription CRUD Operations",
+			"item": [
+				{
+					"name": "GET All Prescriptions (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/prescription",
+							"host": ["{{baseUrl}}"],
+							"path": ["prescription"]
+						}
+					}
+				},
+				{
+					"name": "GET Prescription by Physician-Patient (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/prescription/physician/1/patient/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["prescription", "physician", "1", "patient", "1"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Prescription (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numOfRefills\": 3,\n    \"prescriptionInformation\": \"Take with food, avoid alcohol\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/prescription/physician/1/patient/1/medicine/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["prescription", "physician", "1", "patient", "1", "medicine", "1"]
+						}
+					}
+				},
+				{
+					"name": "PUT Update Prescription (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numOfRefills\": 5,\n    \"prescriptionInformation\": \"Take with food, avoid alcohol, maximum 2 weeks\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/prescription/physician/1/patient/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["prescription", "physician", "1", "patient", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📋 Medical Certificate CRUD Operations",
+			"item": [
+				{
+					"name": "GET All Medical Certificates (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicalcertificate",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalcertificate"]
+						}
+					}
+				},
+				{
+					"name": "GET Medical Certificate by ID (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicalcertificate/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalcertificate", "1"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Medical Certificate (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"signed\": 1,\n    \"start\": \"2024-01-01\",\n    \"end\": \"2024-12-31\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/medicalcertificate",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalcertificate"]
+						}
+					}
+				},
+				{
+					"name": "PUT Update Medical Certificate (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"signed\": 1,\n    \"start\": \"2024-01-01\",\n    \"end\": \"2025-12-31\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/medicalcertificate/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalcertificate", "1"]
+						}
+					}
+				},
+				{
+					"name": "DELETE Medical Certificate (Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "admin", "type": "string"},
+								{"key": "password", "value": "admin", "type": "string"}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/medicalcertificate/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["medicalcertificate", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🔒 Security Test Cases",
+			"item": [
+				{
+					"name": "GET All Physicians (User - Should Fail)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "cst8277", "type": "string"},
+								{"key": "password", "value": "8277", "type": "string"}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/physician",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician"]
+						}
+					}
+				},
+				{
+					"name": "POST Create Physician (User - Should Fail)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{"key": "username", "value": "cst8277", "type": "string"},
+								{"key": "password", "value": "8277", "type": "string"}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Unauthorized\",\n    \"lastName\": \"User\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/physician",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician"]
+						}
+					}
+				},
+				{
+					"name": "GET Physician (No Auth - Should Fail)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/physician",
+							"host": ["{{baseUrl}}"],
+							"path": ["physician"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
