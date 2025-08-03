@@ -37,11 +37,11 @@ public class SecurityRole implements Serializable {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "role_id", nullable = false)
     protected int id;
     
     @Basic(optional = false)
-    @Column(name = "role_name", nullable = false, length = 50)
+    @Column(name = "name", nullable = false, length = 50)
     protected String roleName;
     
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)

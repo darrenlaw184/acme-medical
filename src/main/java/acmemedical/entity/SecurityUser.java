@@ -45,7 +45,7 @@ public class SecurityUser implements Serializable, Principal {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     protected int id;
     
     @Basic(optional = false)
@@ -63,8 +63,8 @@ public class SecurityUser implements Serializable, Principal {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "user_has_role",
-        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     )
     @JsonIgnore
     protected Set<SecurityRole> roles = new HashSet<SecurityRole>();
