@@ -1,42 +1,6 @@
 CST8277 Group Project: REST ACME Medical
 ========================================
-
-Project completed by: [Your Group Name Here]
-
-Group Members:
-==============
-1. [Student Name 1] - Student ID: [ID]
-2. [Student Name 2] - Student ID: [ID] 
-3. [Student Name 3] - Student ID: [ID]
-4. [Student Name 4] - Student ID: [ID]
-
-Work Division:
-==============
-
-Student Name 1 - [Name]:
-- Completed JPA annotations for all entities (Patient, MedicalCertificate, MedicalTraining, Medicine, Prescription)
-- Added proper named queries with parameter handling
-- Implemented Jackson annotations for JSON serialization
-- Grade: 100%
-
-Student Name 2 - [Name]:
-- Created missing REST resources (MedicalTrainingResource, MedicalCertificateResource, PrescriptionResource)
-- Implemented proper security annotations according to project requirements
-- Updated existing resources with correct role-based access control
-- Grade: 100%
-
-Student Name 3 - [Name]:
-- Completed missing service methods in ACMEMedicalService for all entities
-- Implemented CRUD operations for MedicalCertificate, MedicalTraining, and Prescription
-- Added proper transaction handling and error management
-- Grade: 100%
-
-Student Name 4 - [Name]:
-- Created comprehensive JUnit test suite with 55+ tests
-- Implemented tests for all CRUD operations and security scenarios
-- Added negative testing for unauthorized access and error conditions
-- Updated Postman collection with all working REST endpoints
-- Grade: 100%
+Project Completed by Darren Law
 
 Project Completion Summary:
 ===========================
